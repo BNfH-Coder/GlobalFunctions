@@ -70,20 +70,20 @@ function Request-Choice {
 if($Add) {
 
     if($currentPSModulePaths.Contains($ScriptDir)) {
-        Write-Host 'The current script directory has already been added to the PSModulePath variable.'
-        Write-Host 'Use Set-PersistentPSModulePath.ps1 -Remove to remove the module path!' 
+        Write-Host 'Das aktuelle Skriptverzeichnis wurde bereits in die Variable PSModulePath aufgenommen.'
+        Write-Host 'Verwenden Sie Set-PersistentPSModulePath.ps1 -Remove, um den Modulpfad zu entfernen!' 
         exit 0
     }
     
-    Write-Host ('Path to add: {0}' -f $ScriptDir)
+    Write-Host ('Pfad zum Hinzufügen: {0}' -f $ScriptDir)
 
-    if((Request-Choice -Caption 'Do you want to add the script folder to the persistent list of PowerShell Modules?') -eq 0) {
+    if((Request-Choice -Caption 'Möchten Sie den Skriptordner zur persistenten Liste der PowerShell-Module hinzufügen?') -eq 0) {
         
-        Write-Host ('Adding {0}' -f $ScriptDir)
+        Write-Host ('Hinzufügen von {0}' -f $ScriptDir)
 
         $newPSModulesPath=$currentPSModulePaths + ";$($ScriptDir)\"
 
-        Write-Host ('New PSModulePaths: {0}' -f $newPSModulesPath)
+        Write-Host ('Neuer PSModulPfad: {0}' -f $newPSModulesPath)
 
         Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PSModulePath -Value $newPSModulesPath
     }
@@ -92,20 +92,20 @@ if($Add) {
 if($Remove) {
 
     if(!$currentPSModulePaths.Contains($ScriptDir)) {
-        Write-Host 'The current script directory has not been added to the PSModulePath variable.'
-        Write-Host 'Use Set-PersistentPSModulePath.ps1 -Add to add the module path!' 
+        Write-Host 'Das aktuelle Skriptverzeichnis wurde nicht in die Variable PSModulePath aufgenommen.'
+        Write-Host 'Verwenden Sie Set-PersistentPSModulePath.ps1 -Add, um den Modulpfad hinzuzufügen!' 
         exit 0
     }
 
-    Write-Host ('Path to remove: {0}' -f $ScriptDir)
+    Write-Host ('Pfad zum Entfernen: {0}' -f $ScriptDir)
 
-    if((Request-Choice -Caption 'Do you want to remove the script folder from the persistent list of PowerShell Modules?') -eq 0) {
+    if((Request-Choice -Caption 'Möchten Sie den Skriptordner aus der persistenten Liste der PowerShell-Module entfernen?') -eq 0) {
         
-        Write-Host ('Removing {0}' -f $ScriptDir)
+        Write-Host ('Entfernen von {0}' -f $ScriptDir)
 
         $newPSModulesPath=$currentPSModulePaths.Replace(";$($ScriptDir)\","")
 
-        Write-Host ('New PSModulePath(s): {0}' -f $newPSModulesPath)
+        Write-Host ('Aktueller PSModulPfad: {0}' -f $newPSModulesPath)
 
         Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PSModulePath -Value $newPSModulesPath
     }
