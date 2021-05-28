@@ -22,3 +22,5 @@ Find the module at TechNet: https://gallery.technet.microsoft.com/Centralized-lo
 Find the module ar PowerShell Gallery: https://www.powershellgallery.com/packages/GlobalFunctions
 
 Find the blog post here: https://www.granikos.eu/en/justcantgetenough/PostId/210/globalfunctions-shared-powershell-library
+
+Test WN
